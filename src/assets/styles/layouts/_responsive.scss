@@ -1,0 +1,127 @@
+/**
+ * CONTENTS
+ *
+ * BREAKPOINTS
+ * Breakpoints............... Breakpoint Variables for Responsive Design.
+ *
+ * TOOLS
+ * Mixins...............Useful mixins.
+ *
+ * COMPONENTS
+ * Container............The main page header.
+ *
+ *
+ * GLOBAL COMMENTS
+ *
+ * 1. Mastheads will typically have dark backgrounds, so we need to make sure
+ * 2. Mixin receiving a breakpoint to dynamically create media queries.
+ * 3. Mixin para crear la clase col__ , recibe como parámetros el modificador,
+ *    número de columnas y los puntos de ruptura
+ * 4. Mixin to show / hide an element below or above a certain break point.
+ * 9. This is the outermost element of the grid, it will contain row elements
+ * 10. The container fluid will always have a width of 100% which will allow 
+ *     the components to be added as a column
+ * 11. The row container will add the content horizontally (rows). Flex-wrap 
+ *     is used to place the children of a row, making them wrap so they don't 
+ *     overflow and give them 100% width inside the row
+ * 
+ * Bliography
+ * The responsive design code is a variation of the code proposed by Juan 
+ * Varela in his post about Flexbox and Sass Grid Tutorial, available at:
+ * https://www.toptal.com/sass/css3-flexbox-sass-grid-tutorial
+ */
+
+/* ------------------------------------*\
+ #BREAKPOINTS VARIABLES
+\*------------------------------------ */
+
+$grid__bp-sm: 576;
+$grid__bp-md: 768;
+$grid__bp-lg: 992;
+$grid__bp-xl: 1200;
+$grid__cols: 12;
+
+$map-grid-props: (/* [1] */
+'': 0,
+'-sm': $grid__bp-sm,
+'-md' : $grid__bp-md,
+'-lg' : $grid__bp-lg,
+'-xl' : $grid__bp-xl
+);
+
+/* ------------------------------------*\
+  #MIXINS
+\*------------------------------------ */
+
+@mixin create-mq($breakpoint, $min-or-max) {/* [2] */
+  @if ($breakpoint == 0) {
+    @content;
+  }
+  
+  @else {
+    @media screen and (#{$min-or-max}-width: $breakpoint * 1px) {
+      @content;
+    }
+  }
+}
+
+@mixin create-col-classes($modifier, $grid-cols, $breakpoint) {/* [3] */
+  @include create-mq($breakpoint, 'min') {
+    &__col#{$modifier}-offset-0 {
+      margin-left: 0;
+    }
+    
+    @for $i from 1 through $grid-cols {
+      &__col#{$modifier}-#{$i} {
+        flex-basis: (100 / ($grid-cols / $i) ) * 1%;
+        flex-shrink: 3;
+      }
+      &__col#{$modifier}-offset-#{$i} {
+        margin-left: (100 / ($grid-cols / $i) ) * 1%;
+      }
+    }
+  }
+}
+
+@each $modifier , $breakpoint in $map-grid-props {/* [4] */
+  @if ($modifier == '') {
+    $modifier: '-xs';
+  }
+
+  @include create-mq ($breakpoint - 1, 'max') {
+    .hidden#{$modifier}-down {
+      display: none !important;
+    }
+  }
+  
+  @include create-mq ($breakpoint, 'min') {
+    .hidden#{$modifier}-up {
+      display: none !important;
+    }
+  }
+}
+
+/* ------------------------------------*\
+  #CONTAINER
+\*------------------------------------ */
+
+.container {  /* [9] */
+  max-width: $grid__bp-xl * 1px;
+  margin: 0 auto;
+  
+  &--fluid { /* [10] */
+    margin: 0;
+    max-width: 100%;
+  }
+  
+  &__row { /* [11] */
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    flex-shrink: 3;
+  }
+  
+  @each $modifier , $breakpoint in $map-grid-props {
+    @include create-col-classes($modifier, $grid__cols, $breakpoint);
+  }
+}

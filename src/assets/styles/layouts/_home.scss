@@ -1,8 +1,43 @@
 body {
   margin: 0;
-  padding: 30px;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
   font-family: $font-family-sans-serif;
   background-color: $uoc-bg;
+}
+
+footer {
+  background-color: $uoc-color-complement;
+  min-height: 120px;
+  margin-top: auto;
+}
+
+header {
+  background-color: $uoc-corporate;
+  color: $uoc-masterbrand;
+  min-height: 80px;
+}
+
+.container {
+  
+  padding: 10px;
+  
+  @at-root {
+    [class*='container__col-'] {
+      width: 180px;
+      margin: 5px 0;
+      display: flex;
+      align-items: center;
+      background-color: lightblue;
+      justify-content: space-around;
+    }
+  }
+}
+
+.titulo {
+  font-family: $font-family-sans-serif;
   color: $uoc-corporate;
 }
 
