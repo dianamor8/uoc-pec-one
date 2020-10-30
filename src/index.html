@@ -13,17 +13,17 @@
   <header>
     <nav class="navar">
       <ul class="navar__nav">
-        <li class="navar__logo"><a class="navar__link navar__link--logo" href="#">Diana Morocho</a></li>
-        <li class="navar__item"><a class="navar__link navar__link--item" href="#">Acerca de mi</a></li>
+        <li class="navar__logo"><a class="navar__link navar__link--logo" href="#card">Diana Morocho</a></li>
+        <li class="navar__item"><a class="navar__link navar__link--item" href="#card">Acerca de mi</a></li>
         <li class="navar__item"><a class="navar__link navar__link--item" href="#Education">Educación</a></li>
         <li class="navar__item"><a class="navar__link navar__link--item" href="#Experiencia">Experiencia</a></li>
-        <li class="navar__item"><a class="navar__link navar__link--item" href="#">Contáctame</a></li>
+        <li class="navar__item"><a class="navar__link navar__link--item" href="#Contactame">Contáctame</a></li>
         <li class="navar__toggle"><span class="navar__bars"></span></li>
       </ul>
     </nav>
   </header>
 
-  <div class="container container__main">
+  <div id="card" class="container container__main">
     <div class="container__row">
       <div
         class="container__col-xl-10 container__col-lg-10 container__col-md-10 container__col-sm-10 container__col-10 card card__data">
@@ -95,8 +95,42 @@
             </li>
           </ul>
         </div>
-
       </div>
+
+      <div id="Contactame"
+        class="container__col-xl-12 container__col-lg-12 container__col-md-12 container__col-sm-12 container__col-12 col__flex--column">
+        <div
+          class="container__col-xl-12 container__col-lg-12 container__col-md-12 container__col-sm-12 container__col-12">
+          <h3>Contáctame</h3>
+        </div>
+        <div
+          class="container__col-xl-10 container__col-lg-10 container__col-md-10 container__col-sm-10 container__col-10 reduce-margins col__flex--column form">
+          <form action="">
+            <div class="form__control">
+              <label for="Nombre" class="form__label">Nombre</label>
+              <input type="text" class="field form__input">
+            </div>
+            <div class="form__control">
+              <label for="Email" class="form__label">Email</label>
+              <input type="password" class="form__input" class="field">
+            </div>
+            <div class="form__control">
+              <label for="Asunto" class="form__label">Asunto</label>
+              <input type="text" class="form__input" class="field">
+            </div>
+            <div class="form__control">
+              <label for="Mensaje" class="form__label">Mensaje</label>
+              <textarea name="mensaje" class="form__input" id="" cols="30" rows="10"></textarea>
+            </div>
+            <div class="form__control section__submit">              
+              <button class="button">Limpiar</button>
+              <button class="button button__submit">Enviar</button>              
+            </div>
+          </form>
+        </div>
+      </div>
+
+
     </div>
   </div>
 

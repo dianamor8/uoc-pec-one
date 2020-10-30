@@ -21,5 +21,11 @@ import $ from "jquery";
       $(".navar__item").show();
     }
   });
+
+  $('.navar__item').on("click", function(){
+    if($(".navar__toggle").is(':visible')){
+      $(".navar__item").hide();
+    }
+  });
 } )();
 
