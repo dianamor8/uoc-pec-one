@@ -1,3 +1,19 @@
+/**
+ * CONTENTS
+ *
+ * GLOBAL SETTINGS
+ * Global Settings............... Global settings for elements
+ *
+ * RESPONSIVE HEADER
+ * HEADER...............Contains responsive header for the page.
+ *
+ * HEADER CLASSES
+ * Header Classes............Contains header classes for elements.
+ *
+ 
+ /* ------------------------------------*\
+ #GLOBAL SETTINGS
+\*------------------------------------ */
 body {
   margin: 0;
   padding: 0;
@@ -9,28 +25,26 @@ body {
 }
 
 footer {
-  background-color: $uoc-color-complement;
-  min-height: 120px;
+  background-color: $uoc-color-baseuoc;
   margin-top: auto;
+  vertical-align: center;
 }
 
 header {
   background-color: $uoc-corporate;
   color: $uoc-masterbrand;
-  min-height: 80px;
+  display: flex;
 }
 
 .container {
-  
   padding: 10px;
   
   @at-root {
     [class*='container__col-'] {
-      width: 180px;
+      width: auto;
       margin: 5px 0;
       display: flex;
       align-items: center;
-      background-color: lightblue;
       justify-content: space-around;
     }
   }
@@ -43,14 +57,319 @@ header {
 
 .uoc-logo {
   display: block;
-  margin-bottom: 20px;
-  max-width: 300px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  max-width: 100%;
   height: auto;
 }
 
 .uoc-title {
   font-family: $font-family-serif;
-  font-size: 36px;
+  font-size: 1.5 rem;
   font-weight: 700;
   color: $uoc-corporate;
+}
+
+.reduce-margins {
+  margin: 0;
+}
+
+.p--center-align {
+  text-align: center;
+}
+
+/* ------------------------------------*\
+ #RESPONSIVE HEADER
+\*------------------------------------ */
+@mixin media-nav($min-or-max, $breakpoint) {
+  @media screen and (#{$min-or-max}-width: $breakpoint * 1px) {
+    @content;
+  }
+}
+
+.navar {
+  padding: 5px 20px;
+  
+  @each $modifier , $breakpoint in $map-grid-props {
+    @include media-nav('min', $breakpoint) {
+      @if $breakpoint < $grid__bp-sm {
+        color: blueviolet;
+        width: 100%;
+        
+        &__nav {
+          display: flex;
+          flex-wrap: wrap;
+          text-align: center;
+          justify-items: self-start;
+        }
+        
+        &__item {
+          flex-basis: 100%;
+          font-size: 16px;
+          display: none;
+        }
+        
+        &__logo {
+          flex-grow: 1;
+          flex-basis: 90%;
+          text-align: center;
+        }
+        
+        &__toggle {
+          display: block;
+          flex-basis: 5%;
+          order: -1;
+          align-self: center;
+        }
+      }
+
+      @if $breakpoint >= $grid__bp-sm and $breakpoint < $grid__bp-md {
+        width: 100%;
+        color: red;
+        
+        &__nav {
+          display: flex;
+          flex-wrap: wrap;
+          text-align: left;
+          padding: 5px;
+          align-items: center;
+        }
+        
+        &__item {
+          display: block;
+          flex-basis: 14%;
+          font-size: 14px;
+          text-align: center;
+          visibility: visible;
+        }
+        
+        &__logo {
+          flex-basis: 30%;
+          flex-grow: 2;
+          text-align: left;
+        }
+        
+        &__toggle {
+          display: none;
+        }
+      }
+
+      @if $breakpoint >= $grid__bp-md and $breakpoint < $grid__bp-lg {
+        width: 100%;
+        color: rgb(35, 155, 95);
+        
+        &__nav {
+          display: flex;
+          flex-wrap: wrap;
+          padding: 5px;
+          justify-content: center;
+        }
+        
+        &__item {
+          display: block;
+          text-align: center;
+          flex-basis: 14%;
+          font-size: 16px;
+        }
+        
+        &__logo {
+          flex-basis: 30%;
+          flex-grow: 2;
+          text-align: left;
+        }
+        
+        &__toggle {
+          display: none;
+        }
+      }
+
+      @if $breakpoint >= $grid__bp-lg {
+        width: 100%;
+        color: blue;
+        
+        &__nav {
+          display: flex;
+          flex-wrap: wrap;
+          padding: 5px;
+          justify-content: center;
+        }
+        
+        &__item {
+          display: block;
+          text-align: center;
+          flex-basis: 14%;
+          font-size: 18px;
+        }
+        
+        &__logo {
+          flex-basis: 30%;
+          flex-grow: 2;
+          text-align: left;
+        }
+        
+        &__toggle {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+/* ------------------------------------*\
+ #HEADER CLASSES
+\*------------------------------------ */
+.navar__nav {
+  list-style-type: none;
+}
+
+.navar__item { //se refiere a todos los elementos ul>li
+  text-decoration: none;
+  padding: 15px 5px;
+}
+
+.navar__link {
+  color: $uoc-masterbrand;
+  text-decoration: none;
+  display: block;
+}
+
+.navar__logo {
+  color: $uoc-masterbrand;
+  text-decoration: none;
+  font-size: 18px;
+  padding: 15px 5px;
+}
+
+.navar__item:hover {
+  padding: 0;
+}
+
+.navar__link--item:hover {
+  color: $uoc-corporate;
+  background-color: $uoc-masterbrand;
+  padding: 15px 5px;
+  border-radius: 50em;
+}
+
+.navar__link--logo {
+  font-size: 20px;
+}
+
+.navar__link--logo:hover {
+  color: $uoc-masterbrand;
+}
+
+.navar__bars {
+  background-color: #999;
+  display: inline-block;
+  height: 2px;
+  position: relative;
+  width: 10px;
+}
+
+.navar__bars::before,
+.navar__bars::after {
+  background: white;
+  content: "";
+  display: block;
+  height: 2px;
+  position: absolute;
+  width: 18px;
+}
+
+.navar__bars::before { top: 5px; }
+
+.navar__bars::after { top: -5px; }
+
+/* ------------------------------------*\
+ #BODY CLASSES
+\*------------------------------------ */
+.container__main {
+  max-width: 80%;
+  margin: 0 0;
+}
+
+.card {
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex-direction: row;
+  font-size: 1.2rem;
+
+  @each $modifier , $breakpoint in $map-grid-props {
+    @include media-nav('min', $breakpoint) {
+      @if $breakpoint < $grid__bp-sm {
+        &__data {
+          font-size: 0.8rem;
+          flex-direction: column;
+        }
+      }
+
+      @if $breakpoint >= $grid__bp-sm and $breakpoint < $grid__bp-md {
+        &__data {
+          font-size: 0.7rem;
+          flex-direction: row;
+        }
+
+        &__image {
+          width: 100%;
+        }
+
+        &__text {
+          margin: 0 5% 0 5%;
+        }
+      }
+
+      @if $breakpoint >= $grid__bp-md and $breakpoint < $grid__bp-lg {
+        &__data {
+          font-size: 1rem;
+          flex-direction: row;
+        }
+        
+        &__image--img {
+          width: 80%;
+        }
+
+        &__text {
+          margin: 0;
+        }
+      }
+
+      @if $breakpoint >= $grid__bp-lg {
+        &__image--img {
+          width: 70%;
+        }
+
+        &__data {
+          font-size: 1.2rem;
+          flex-direction: row;
+        }
+      }
+    }
+  }
+}
+
+.card__image--img {
+  display: block;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  max-width: 90%;
+  height: auto;
+  border-radius: 50%;
+}
+
+.card__description {
+  font-size: 0.9rem;
+  margin: 2% 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.footer__container {
+  text-align: center;
+  font-size: 1rem;
 }
